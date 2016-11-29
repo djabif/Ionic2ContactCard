@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { NavController, Platform } from 'ionic-angular';
 
-import {CallNumber, SocialSharing } from 'ionic-native';
+import {CallNumber, SocialSharing, InAppBrowser } from 'ionic-native';
 
 @Component({
   selector: 'page-contact',
@@ -25,7 +25,7 @@ export class ContactPage {
   sendMail(){
     this.platform.ready().then(() => {
       SocialSharing.canShareViaEmail().then(() => {
-        SocialSharing.shareViaEmail('Body', 'Subject', ['gonza.digiovanni@gmail.com']).then(() => {
+        SocialSharing.shareViaEmail('Body', 'Subject', ['example@example.com']).then(() => {
           console.log('Success!');
         }).catch(() => {
           console.log('Shearing error');
@@ -33,6 +33,12 @@ export class ContactPage {
       }).catch(() => {
          console.log('Sharing via email is not possible');
       });
+    })
+  }
+
+  openInAppBrowser(){
+    this.platform.ready().then(() => {
+      new InAppBrowser('https://google.com', '_blank', "location=yes");
     })
   }
 }
