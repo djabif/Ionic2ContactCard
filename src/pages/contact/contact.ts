@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { NavController, Platform } from 'ionic-angular';
 
-import {CallNumber, EmailComposer} from 'ionic-native';
+import {CallNumber, SocialSharing } from 'ionic-native';
 
 @Component({
   selector: 'page-contact',
@@ -24,18 +24,15 @@ export class ContactPage {
 
   sendMail(){
     this.platform.ready().then(() => {
-      EmailComposer.isAvailable()
-      .then(function (isAvailable) {
-        console.log(isAvailable);
-      })
-
-      let email = {
-              to: 'soii_elgonza@hotmail.com',
-              cc: 'gonza.digiovanni@gmail.com'
-            };
-      EmailComposer.open(email);
-      console.log(email);
+      SocialSharing.canShareViaEmail().then(() => {
+        SocialSharing.shareViaEmail('Body', 'Subject', ['gonza.digiovanni@gmail.com']).then(() => {
+          console.log('Success!');
+        }).catch(() => {
+          console.log('Shearing error');
+        });
+      }).catch(() => {
+         console.log('Sharing via email is not possible');
+      });
     })
   }
-
 }
