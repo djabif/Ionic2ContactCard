@@ -1,7 +1,14 @@
-import { NgModule, ErrorHandler } from '@angular/core';
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { NgModule } from '@angular/core';
+import { IonicApp, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { ContactPage } from '../pages/contact/contact';
+import { SplashScreen} from "@ionic-native/splash-screen";
+import { StatusBar} from "@ionic-native/status-bar";
+import { BrowserModule } from '@angular/platform-browser';
+import { CallNumber } from '@ionic-native/call-number';
+import { SocialSharing } from '@ionic-native/social-sharing';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+
 
 @NgModule({
   declarations: [
@@ -9,6 +16,7 @@ import { ContactPage } from '../pages/contact/contact';
     ContactPage
   ],
   imports: [
+    BrowserModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -16,6 +24,12 @@ import { ContactPage } from '../pages/contact/contact';
     MyApp,
     ContactPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
+  providers: [
+    SplashScreen,
+    StatusBar,
+    CallNumber,
+    SocialSharing,
+    InAppBrowser
+  ]
 })
 export class AppModule {}
