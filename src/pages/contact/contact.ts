@@ -34,16 +34,20 @@ export class ContactPage {
   }
 
   getData(){
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+    loading.present();
     this.contacts.find(['name'])
     .then( data => {
       this.items = data;
-      console.log(data)
+      loading.dismiss();
     })
   }
 
-  call(){
+  call(number){
     this.platform.ready().then(() => {
-      this.callNumber.callNumber('phoneNumber', true)
+      this.callNumber.callNumber(number, true)
       .then(() => console.log('Launched dialer!'))
       .catch(() => console.log('Error launching dialer'));
     });
@@ -63,9 +67,9 @@ export class ContactPage {
     })
   }
 
-  openInAppBrowser(){
+  openInAppBrowser(link){
     this.platform.ready().then(() => {
-      const browser = this.iab.create('https://google.com/');
+      const browser = this.iab.create(link);
     })
   }
 
@@ -83,9 +87,10 @@ export class ContactPage {
       content: 'Please wait...'
     });
     loading.present();
-    this.contacts.find(['name'], {filter: this.searchValue})
+    this.contacts.find(['name', 'phoneNumbers'], {filter: this.searchValue})
     .then( data => {
       this.items = data;
+      console.log(data)
       loading.dismiss();
     })
   }

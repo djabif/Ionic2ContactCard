@@ -36,13 +36,12 @@ export class ContactModalPage {
  }
 
  onSubmit(value){
-   debugger
    let contact: Contact = this.contacts.create();
    console.log(contact);
 
    contact.name = new ContactName(null, value.surname, value.name);
    contact.phoneNumbers = [new ContactField('mobile', value.mobile)];
-   contact.contactPage = [new ContactField('contactPage', value.contactPage)];
+   contact.urls = [new ContactField('contactPage', value.contactPage)];
    contact.save().then(
     () => {
       console.log('Contact saved!', contact);

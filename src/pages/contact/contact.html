@@ -11,30 +11,37 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-searchbar [(ngModel)]="searchValue" (ionInput)="getItems($event)"></ion-searchbar>
-  <ion-card *ngFor=' let item of items'>
+  <ion-searchbar debounce='1500' [(ngModel)]="searchValue" (ionInput)="getItems($event)"></ion-searchbar>
+  <ion-list *ngFor=' let item of items | slice:0:100'>
+    <ion-item-sliding>
+      <ion-item >
+        <h2>
+          {{item.name.givenName}}
+        </h2>
+        <p>
+          {{item.phoneNumbers[0].value}}
+        </p>
+      </ion-item>
+      <ion-item-options side="right">
+        <button ion-button color="secondary" (click)="call(item.phoneNumbers[0].value)">
+          <ion-icon name="md-call"></ion-icon>
+          Call
+        </button>
+        <button ion-button color="danger" (click)="sendMail()">
+          <ion-icon name="md-mail"></ion-icon>
+          Mail
+        </button>
+        <button *ngIf="item.urls" ion-button color="primary" (click)="openInAppBrowser(item.urls[0].value)">
+          <ion-icon name="md-link"></ion-icon>
+          Link
+        </button>
+        <button ion-button color="primary" *ngIf="!item.urls"(click)="openInAppBrowser('https://ionicthemes.com/')">
+          <ion-icon name="md-link"></ion-icon>
+          Link
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
 
-  <ion-item >
-    <ion-avatar item-left>
-      <img src="./assets/img/Gonza.jpg">
-    </ion-avatar>
-    <h2>{{item.name.givenName}}</h2>
-    <a (click)=openInAppBrowser()>google.com</a>
-  </ion-item>
-
-  <ion-row>
-    <ion-col>
-      <button ion-button clear (click)="call()">
-        <ion-icon name="md-call"></ion-icon>
-      </button>
-    </ion-col>
-    <ion-col>
-      <button ion-button clear (click)="sendMail()">
-        <ion-icon name="md-mail"></ion-icon>
-      </button>
-    </ion-col>
-  </ion-row>
-
-</ion-card>
+</ion-list>
 
 </ion-content>
