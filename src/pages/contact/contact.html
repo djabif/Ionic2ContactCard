@@ -3,17 +3,22 @@
     <ion-title>
       Contact
     </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="openCreateModal()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
-  <ion-card>
+  <ion-searchbar [(ngModel)]="searchValue" (ionInput)="getItems($event)"></ion-searchbar>
+  <ion-card *ngFor=' let item of items'>
 
-  <ion-item>
+  <ion-item >
     <ion-avatar item-left>
       <img src="./assets/img/Gonza.jpg">
     </ion-avatar>
-    <h2>Gonzalo Di Giovanni</h2>
+    <h2>{{item.name.givenName}}</h2>
     <a (click)=openInAppBrowser()>google.com</a>
   </ion-item>
 
