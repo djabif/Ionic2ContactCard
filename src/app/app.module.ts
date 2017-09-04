@@ -7,9 +7,9 @@ import { SplashScreen} from "@ionic-native/splash-screen";
 import { StatusBar} from "@ionic-native/status-bar";
 import { BrowserModule } from '@angular/platform-browser';
 import { CallNumber } from '@ionic-native/call-number';
-import { SocialSharing } from '@ionic-native/social-sharing';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { Contacts } from '@ionic-native/contacts';
+import { EmailComposer } from '@ionic-native/email-composer';
 
 
 @NgModule({
@@ -32,9 +32,9 @@ import { Contacts } from '@ionic-native/contacts';
     SplashScreen,
     StatusBar,
     CallNumber,
-    SocialSharing,
     InAppBrowser,
-    Contacts
+    Contacts,
+    EmailComposer
   ]
 })
 export class AppModule {}

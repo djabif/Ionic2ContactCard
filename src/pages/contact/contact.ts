@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 import { NavController, Platform, ModalController, LoadingController } from 'ionic-angular';
 
 import { CallNumber } from '@ionic-native/call-number';
-import { SocialSharing } from '@ionic-native/social-sharing';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { EmailComposer } from '@ionic-native/email-composer';
 
 import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/contacts';
 import { ContactModalPage } from '../contact-modal/contact-modal';
@@ -21,7 +21,7 @@ export class ContactPage {
     public navCtrl: NavController,
     public platform: Platform,
     public callNumber: CallNumber,
-    public socialSharing: SocialSharing,
+    public emailComposer: EmailComposer,
     public iab: InAppBrowser,
     private contacts: Contacts,
     public modalCtrl: ModalController,
@@ -54,17 +54,13 @@ export class ContactPage {
   }
 
   sendMail(){
-    this.platform.ready().then(() => {
-      this.socialSharing.canShareViaEmail().then(() => {
-        this.socialSharing.shareViaEmail('Body', 'Subject', ['example@example.com']).then(() => {
-          console.log('Success!');
-        }).catch(() => {
-          console.log('Shearing error');
-        });
-      }).catch(() => {
-         console.log('Sharing via email is not possible');
-      });
-    })
+    this.emailComposer.isAvailable().then(() =>{
+      let email = {
+        to: 'example@example.com',
+        subject: 'Ionicthemes example',
+      };
+      this.emailComposer.open(email);
+    });
   }
 
   openInAppBrowser(link){
@@ -82,7 +78,7 @@ export class ContactPage {
     modal.present();
   }
 
-  getItems(event){
+  searchItems(event){
     let loading = this.loadingCtrl.create({
       content: 'Please wait...'
     });
