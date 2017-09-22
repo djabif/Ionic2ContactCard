@@ -3,33 +3,41 @@
     <ion-title>
       Contact
     </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="openCreateModal()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
-  <ion-card>
+  <ion-searchbar debounce='1000' [(ngModel)]="searchValue" (ionInput)="searchItems($event)"></ion-searchbar>
+  <ion-list [virtualScroll]="items">
+    <ion-item-sliding *virtualItem="let item">
+      <ion-item>
+        <h2>{{item.name.givenName}}</h2>
+        <p>{{item.phoneNumbers[0].value}}</p>
+      </ion-item>
+      <ion-item-options side="right">
+        <button class="slide-option" ion-button color="secondary" (click)="call(item.phoneNumbers[0].value)">
+          <ion-icon name="md-call"></ion-icon>
+          Call
+        </button>
+        <button class="slide-option" ion-button color="danger" (click)="sendMail()">
+          <ion-icon name="md-mail"></ion-icon>
+          Mail
+        </button>
+        <button class="slide-option" *ngIf="item.urls" ion-button color="primary" (click)="openInAppBrowser(item.urls[0].value)">
+          <ion-icon name="md-link"></ion-icon>
+          Link
+        </button>
+        <button class="slide-option" ion-button color="primary" *ngIf="!item.urls"(click)="openInAppBrowser('https://ionicthemes.com/')">
+          <ion-icon name="md-link"></ion-icon>
+          Link
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
 
-  <ion-item>
-    <ion-avatar item-left>
-      <img src="./assets/img/Gonza.jpg">
-    </ion-avatar>
-    <h2>Gonzalo Di Giovanni</h2>
-    <a (click)=openInAppBrowser()>google.com</a>
-  </ion-item>
-
-  <ion-row>
-    <ion-col>
-      <button ion-button clear (click)="call()">
-        <ion-icon name="md-call"></ion-icon>
-      </button>
-    </ion-col>
-    <ion-col>
-      <button ion-button clear (click)="sendMail()">
-        <ion-icon name="md-mail"></ion-icon>
-      </button>
-    </ion-col>
-  </ion-row>
-
-</ion-card>
+</ion-list>
 
 </ion-content>

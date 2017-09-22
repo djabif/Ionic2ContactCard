@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      Create Contact
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button icon-only (click)="dismiss()">
+        <ion-icon name="md-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form class="form" [formGroup]="validations_form"  (ngSubmit)="onSubmit(validations_form.value)">
+      <ion-item>
+        <ion-label stacked color="primary">Name</ion-label>
+        <ion-input type="text" formControlName="name" class="form-controll" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked color="primary">Surname</ion-label>
+        <ion-input type="text" formControlName="surname" class="form-controll" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked color="primary">Mobile</ion-label>
+        <ion-input type="number" formControlName="mobile" class="form-controll" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked color="primary">Contact page</ion-label>
+        <ion-input type="text" placeholder="Format: https://ionicthemes.com" formControlName="contactPage" class="form-controll" required></ion-input>
+      </ion-item>
+
+
+      <button ion-button full type="submit" [disabled]="!validations_form.valid">Create</button>
+    </form>
+</ion-content>
