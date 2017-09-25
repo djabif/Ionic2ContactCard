@@ -39,10 +39,15 @@ export class ContactPage {
     });
     loading.present();
     this.contacts.find(['name'])
-    .then( data => {
+    .then(data => {
+      console.log("data", data);
+      debugger;
       this.items = data;
       loading.dismiss();
-    })
+    }, err => {
+      console.log("error", err);
+      loading.dismiss();
+    });
   }
 
   call(number){
