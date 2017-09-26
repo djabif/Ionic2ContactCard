@@ -28,9 +28,12 @@
     <feature name="StatusBar">
         <param name="ios-package" onload="true" value="CDVStatusBar" />
     </feature>
+    <allow-navigation href="http://10.3.3.181:8101" />
+    <allow-navigation href="http://10.3.3.181:8100" />
     <engine name="android" spec="^6.2.3" />
     <engine name="ios" spec="^4.4.0" />
     <plugin name="call-number" spec="git+https://github.com/Rohfosho/CordovaCallNumberPlugin.git" />
+    <plugin name="com.dbaq.cordova.contactsPhoneNumbers" spec="~0.0.9" />
     <plugin name="cordova-plugin-console" spec="^1.1.0" />
     <plugin name="cordova-plugin-contacts" spec="^2.3.1">
         <variable name="CONTACTS_USAGE_DESCRIPTION" value=" " />
